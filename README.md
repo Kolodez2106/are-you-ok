@@ -27,3 +27,11 @@ Just replace the path of android.jar on your computer in the make.sh file and ex
 ## How to install and start
 
 After building, just copy the AreYouOk.apk file to your phone, install and start it. Or connect your phone with your computer using the USB debugging option and execute start.sh.
+
+## Acknowledgements
+
+This project is inspired by the [VitalSigns project](https://github.com/DennisMat/VitalSigns) of [DennisMat](https://github.com/DennisMat) and the [CI Check-In App](https://www.cryonics.org/resources/ci-check-in-app) of [Cryonics Institute](https://www.cryonics.org/). For the inspiration for the build process see the readme of [this hello world project](https://github.com/Kolodez2106/HelloWorld-app-compiled-in-bash).
+
+Sources for images:
+* https://openclipart.org/detail/2528/love-heart
+* https://openclipart.org/detail/184532/alarm-symbol
