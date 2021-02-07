@@ -1,4 +1,4 @@
-# "Are you ok?" app
+# "Are you ok?" Android app
 
 ## Description and manual
 
