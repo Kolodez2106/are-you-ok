@@ -28,6 +28,54 @@ Just replace the path of android.jar on your computer in the make.sh file and ex
 
 After building, just copy the AreYouOk.apk file to your phone, install and start it. Or connect your phone with your computer using the USB debugging option and execute start.sh.
 
+## Bugs and problems
+
+Please report bugs and problems to the author in order to support the development: [kolodez2106@gmail.com](mailto:kolodez2106@gmail.com)
+
+* A newly established pulse device connection may be closed if a STATE_DISCONNECTED arrives too late (but this should rarely happen).
+* The app cannot be installed to some phones for yet unknown reason: Samsung Galaxy Y Young
+
+## Wish list for improvements
+
+### App
+
+* Put the app to repositories like Google Play.
+* Develop an update mechanism.
+* Remove the write storage permission.
+
+### App user interface
+
+* Keep the state of ActivityMain even after the activity was invisible or the screen was rotated.
+* Develop a more attractive design.
+* Tell the user when an SMS is sent.
+
+### Checking
+
+* Enable different checking time periods for different events.
+* Also check the phone battery status.
+
+### Beep
+
+* Develop volume control.
+
+### Pulse device
+
+* Develop a possibility to cancel the connection process.
+
+### Contacts
+
+* Develop a more flexible algorithm for making calls and ordering them.
+* The app should be working on multi-sim phones.
+
+### Location
+
+* Search for a location as soon as alarm starts and do not wait for 5 seconds.
+* Add an optional permanent location tracker and trigger a check on location loss.
+
+### Wake lock
+
+* Disable wake lock if no device is connected and replace by an Android alarm in order to save phone battery.
+
 ## Acknowledgements
 
 This project is inspired by the [VitalSigns project](https://github.com/DennisMat/VitalSigns) of [DennisMat](https://github.com/DennisMat) and the [CI Check-In App](https://www.cryonics.org/resources/ci-check-in-app) of [Cryonics Institute](https://www.cryonics.org/). For the inspiration for the build process see the readme of [this hello world project](https://github.com/Kolodez2106/HelloWorld-app-compiled-in-bash).
