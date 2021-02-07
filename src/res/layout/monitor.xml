@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+
+	<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:paddingTop="5dp"
+	>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonMainHelp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="help"
+			/>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonStartStopMonitor"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="START MONITORING"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextNextCheck"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="15dp"
+				android:textColor="#FFFFFF"
+			/>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextPulse"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="15dp"
+				android:textColor="#FFFFFF"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextAreYouOk"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="15dp"
+				android:textColor="#FF0000"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextNextCheckIn"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="8"
+				android:textSize="15dp"
+				android:text="next check in:"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<EditText
+				android:id="@+id/EditHours"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="4"
+				android:inputType="number"
+				android:text="0"
+			/>
+			
+			<TextView
+				android:id="@+id/TextHours"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:textSize="15dp"
+				android:text="h"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<EditText
+				android:id="@+id/EditMinutes"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="4"
+				android:inputType="number"
+				android:text="1"
+			/>
+			
+			<TextView
+				android:id="@+id/TextHours"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:textSize="15dp"
+				android:text="min"
+				android:textColor="#FFFFFF"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonSnooze"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="set next check (snooze)"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonConnectDisconnect"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="connect pulse device"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextShortContactList"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="15dp"
+				android:text="my contacts:"
+				android:textColor="#FFFFFF"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonEditContacts"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="edit contacts"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextMinPulse"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:textSize="15dp"
+				android:text="min pulse:"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<Button
+				android:id="@+id/ButtonMinPulseDown"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:text="down"
+			/>
+			
+			<TextView
+				android:id="@+id/TextMinPulseValue"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="15dp"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<Button
+				android:id="@+id/ButtonMinPulseUp"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:text="up"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextMaxPulse"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:textSize="15dp"
+				android:text="max pulse:"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<Button
+				android:id="@+id/ButtonMaxPulseDown"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:text="down"
+			/>
+			
+			<TextView
+				android:id="@+id/TextMaxPulseValue"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="15dp"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<Button
+				android:id="@+id/ButtonMaxPulseUp"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:text="up"
+			/>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextTimeForChecking"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:textSize="15dp"
+				android:text="seconds for checking:"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<Button
+				android:id="@+id/ButtonTimeForCheckingDown"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:text="down"
+			/>
+			
+			<TextView
+				android:id="@+id/TextTimeForCheckingValue"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="15dp"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<Button
+				android:id="@+id/ButtonTimeForCheckingUp"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="2"
+				android:text="up"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingTop="5dp"
+		>
+			
+			<TextView
+				android:id="@+id/TestTests"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="15dp"
+				android:text="Tests:"
+				android:textColor="#FFFFFF"
+			/>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonMainTestLocation"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="location"
+			/>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonMainTestBeep"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="beep"
+			/>
+			
+		</LinearLayout>
+		
+	</LinearLayout>
+	
+</ScrollView>
