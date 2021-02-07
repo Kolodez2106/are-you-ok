@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="org.kolodez.AreYouOk"
+	android:versionCode="1"
+    android:versionName="1.22"
+>
+	
+	<uses-sdk android:minSdkVersion="5" />
+	
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- API 1 -->
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!-- API 1 -->
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- API 1 -->
+	<uses-permission android:name="android.permission.BLUETOOTH"/> <!-- API 1 -->
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/> <!-- API 1 -->
+	<uses-permission android:name="android.permission.CALL_PHONE"/> <!-- API 1 -->
+	<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/> <!-- API 28 -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- API 1, this permission does not seem to be needed due to the Android reference, but apparently, SmsManager.sendMultipartTextMessage() sometimes throws a java.lang.SecurityException and reports that this permission is not set -->
+	<uses-permission android:name="android.permission.SEND_SMS"/> <!-- API 1 -->
+	<uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- API 1 -->
+	<!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+	
+	<uses-feature android:name="android.hardware.bluetooth" />
+	<uses-feature android:name="android.hardware.bluetooth_le" />
+	<uses-feature android:name="android.hardware.location.gps" />
+	<uses-feature android:name="android.hardware.location.network" />
+	
+	<application
+		android:label="Are you ok?"
+		android:icon="@drawable/icon"
+	>
+		
+		<activity
+			android:name=".ActivityMain"
+			android:label="Are you ok?"
+			android:launchMode="singleInstance"
+		>
+			
+			<intent-filter>
+				
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+				
+			</intent-filter>
+			
+		</activity>
+		
+		<activity
+			android:name=".ActivityAlarm"
+			android:launchMode="singleInstance"
+		/>
+		
+		<service android:name=".ServiceMain"/>
+		<service android:name=".ServiceAlarm"/>
+		
+    </application>
+	
+</manifest>
