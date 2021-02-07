@@ -37,6 +37,8 @@ Please report bugs and problems to the author in order to support the developmen
 
 ## Wish list for improvements
 
+Please tell the author your wishes in order to support the development: kolodez2106@gmail.com
+
 ### App
 
 * Put the app to repositories like Google Play.
