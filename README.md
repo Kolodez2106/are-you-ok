@@ -34,6 +34,8 @@ Please report bugs and problems to the author in order to support the developmen
 
 * A newly established pulse device connection may be closed if a STATE_DISCONNECTED arrives too late (but this should rarely happen).
 * The app cannot be installed to some phones for yet unknown reason: Samsung Galaxy Y Young
+* Sometimes, the app is killed overnight (Samsung Galaxy S5). This seem to be caused by Play Protect. You can test it by manually scanning your apps with Play Protect. In that case, simply turn off Play Protect or regularly check whether the app is still running (this seems to be true as long as the foreground notification is visible).
+* The following incident on a Samsung Galaxy S5 was reported once: The phone was locked and a check was triggered. However, the app did not appear in front of the lock screen and, after manually unlocking, the main activity could neither be brought to front by clicking on the foreground notification, nor by clicking on the app shortcut. Finally, the user opened it from the list of open activities and answered the check. This behaviour could not be reproduced yet.
 
 ## Wish list for improvements
 
