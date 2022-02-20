@@ -64,6 +64,7 @@ Please tell the author your wishes in order to support the development: kolodez2
 
 ### Pulse device
 
+* Try to reconnect after connection loss before triggering a check.
 * Develop a possibility to cancel the connection process.
 
 ### Contacts
