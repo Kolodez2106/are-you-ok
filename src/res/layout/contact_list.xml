@@ -20,24 +20,116 @@
 		>
 			
 			<Button
-				android:id="@+id/ButtonAddContact"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:text="add contact"
-				android:clickable="true"
-			/>
-			
-			<Button
 				android:id="@+id/ButtonCloseContactList"
-				android:layout_width="0dp"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
 				android:text="back"
 				android:clickable="true"
 			/>
 			
 		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextAddNewContactManually"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="15dp"
+				android:textColor="#FFFFFF"
+				android:text="Add new contact manually:"
+			/>
+			
+		</LinearLayout>
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextContactName"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="15dp"
+				android:text="Name:"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<EditText
+				android:id="@+id/EditContactName"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="3"
+				android:inputType="text"
+				android:text=""
+			/>
+		
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<TextView
+				android:id="@+id/TextContactNumber"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:textSize="15dp"
+				android:text="Number:"
+				android:textColor="#FFFFFF"
+			/>
+			
+			<EditText
+				android:id="@+id/EditContactNumber"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="3"
+				android:inputType="phone"
+				android:text=""
+			/>
+		
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonAddContactManually"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="add above contact"
+				android:clickable="true"
+			/>
+			
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+		>
+			
+			<Button
+				android:id="@+id/ButtonAddContactFromContactList"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="add from contact list"
+				android:clickable="true"
+			/>
+			
+		</LinearLayout>
+		
 		
 		<LinearLayout
 			android:layout_width="match_parent"
