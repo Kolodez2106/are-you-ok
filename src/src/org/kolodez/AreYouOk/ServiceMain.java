@@ -169,7 +169,9 @@ public class ServiceMain extends Service {
 		
 		if (this.gatt != null) {
 			this.gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-			this.gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+			try {
+				this.gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+			} catch (NullPointerException e) { }
 			this.gatt = null;
 		}
 		
@@ -572,7 +574,9 @@ public class ServiceMain extends Service {
 		
 		if (this.gatt != null) {
 			this.gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-			this.gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+			try {
+				this.gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+			} catch (NullPointerException e) { }
 			this.gatt = null;
 		}
 		this.batteryCharacteristic = null;
@@ -667,7 +671,9 @@ public class ServiceMain extends Service {
 				}
 				else {
 					gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-					gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+					try {
+						gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+					} catch (NullPointerException e) { }
 				}
 			}
 		}
@@ -692,7 +698,9 @@ public class ServiceMain extends Service {
 				}
 				else {
 					gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-					gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+					try {
+						gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+					} catch (NullPointerException e) { }
 				}
 			}
 			
@@ -711,7 +719,9 @@ public class ServiceMain extends Service {
 						
 						if (!bDiscoverStarted) {
 							gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-							gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+							try {
+								gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+							} catch (NullPointerException e) { }
 						}
 						else {
 							ServiceMain.this.connectionStatus = "discovering services ...";
@@ -720,7 +730,9 @@ public class ServiceMain extends Service {
 					}
 					else {
 						gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-						gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+						try {
+							gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+						} catch (NullPointerException e) { }
 					}
 				}
 				
@@ -779,7 +791,9 @@ public class ServiceMain extends Service {
 					List<BluetoothGattService> listServices = gatt.getServices(); // BluetoothGatt: API 18, throws nothing
 					if (listServices == null) {
 						gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-						gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+						try {
+							gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+						} catch (NullPointerException e) { }
 						return;
 					}
 					
@@ -886,7 +900,9 @@ public class ServiceMain extends Service {
 			
 			else {
 				gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-				gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+				try {
+					gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+				} catch (NullPointerException e) { }
 			}
 			
 		}
@@ -902,7 +918,9 @@ public class ServiceMain extends Service {
 		
 		if (this.gatt != null) {
 			this.gatt.disconnect(); // BluetoothGatt: API 18, returns void, throws nothing
-			this.gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing
+			try {
+				this.gatt.close(); // BluetoothGatt: API 18, returns void, throws nothing (however, a NullPointerException is sometimes returned on a Samsung Galaxy S4 mini)
+			} catch (NullPointerException e) { }
 		}
 		
 		this.batteryCharacteristic = null;

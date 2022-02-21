@@ -24,7 +24,7 @@ public class AppState { // API 4
 	
 	public static final int SDK = Build.VERSION.SDK_INT; // API 4
 	
-	public static boolean bInitialized = false;
+	private static boolean bInitialized = false;
 	
 	public static int mode = AppMode.MONITOR;
 	
@@ -32,7 +32,7 @@ public class AppState { // API 4
 	
 	public static int minPulse = 40;
 	public static int maxPulse = 100;
-	public static int timeForChecking = 30; // in seconds
+	public static int timeForChecking = 120; // in seconds
 	
 	
 	public static final int ALARM_REASON_BAD_PULSE = 0;
@@ -59,6 +59,8 @@ public class AppState { // API 4
 			
 			contactList = new ContactList (context);
 			contactList.readFromSharedPreferences ();
+			
+			bInitialized = true;
 		}
 	}
 	

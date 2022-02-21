@@ -17,6 +17,8 @@ import android.net.Uri; // API 1
 
 import android.provider.ContactsContract; // API 5
 
+import android.text.Editable; // API 1
+
 import android.view.InflateException; // API 1
 import android.view.LayoutInflater; // API 1
 import android.view.View; // API 1
@@ -24,6 +26,7 @@ import android.view.ViewGroup; // API 1
 
 import android.widget.ArrayAdapter; // API 1
 import android.widget.Button; // API 1
+import android.widget.EditText; // API 1
 import android.widget.ListView; // API 1
 import android.widget.TextView; // API 1
 
@@ -40,12 +43,22 @@ public class ActivityMainLayoutContactList extends MultipleLayoutActivityLayout 
 	
 	private final static int RESULT_PICK_CONTACT = 1;
 	
-	private Button[] button = new Button[2];
+	private Button[] button = new Button[3];
 	
 	private static int[] buttonIdArray = {
-		R.id.ButtonAddContact,
-		R.id.ButtonCloseContactList
+		R.id.ButtonCloseContactList,
+		R.id.ButtonAddContactFromContactList,
+		R.id.ButtonAddContactManually
 	};
+	
+	
+	// we use that [0]=name, [1]=number
+	private final static int[] editTextIdArray = {
+		R.id.EditContactName,
+		R.id.EditContactNumber
+	};
+	private final static int N_EDITTEXTS = 2;
+	private EditText[] editText = new EditText [N_EDITTEXTS];
 	
 	
 	protected void onStart (int i) {
@@ -63,6 +76,16 @@ public class ActivityMainLayoutContactList extends MultipleLayoutActivityLayout 
 			ButtonListener listener = this.new ButtonListener (buttonIdArray [iButton]);
 			this.button [iButton].setOnClickListener (listener); // View: API 1, returns void, nothing thrown
 		}
+		
+		
+		for (int iEditText = 0; iEditText < editText.length; iEditText++) {
+			this.editText [iEditText] = (EditText) activity.findViewById (editTextIdArray [iEditText]); // Activity: API 1, may return null, nothing thrown
+			if (this.editText [iEditText] == null) {
+				activity.changeLayout (ActivityMain.LAYOUT_MAIN);
+				return;
+			}
+		}
+		
 		
 		this.listView = (ListView) activity.findViewById (R.id.ListViewContacts); // Activity: API 1, may return null, nothing thrown
 		if (this.listView == null) {
@@ -186,15 +209,48 @@ public class ActivityMainLayoutContactList extends MultipleLayoutActivityLayout 
 		public ButtonListener (int id) { this.id = id; }
 		
 		public void onClick (View v) {
-			if (this.id == R.id.ButtonAddContact)
-				ActivityMainLayoutContactList.this.addContact();
+			if (this.id == R.id.ButtonAddContactFromContactList)
+				ActivityMainLayoutContactList.this.addContactFromList();
+			
+			else if (this.id == R.id.ButtonAddContactManually)
+				ActivityMainLayoutContactList.this.addContactManually();
 			
 			else if (this.id == R.id.ButtonCloseContactList)
 				ActivityMainLayoutContactList.this.closeContactList();
 		}
 	}
 	
-	private void addContact () {
+	
+	private void addContactManually () {
+		
+		Editable editableName = this.editText [0].getText(); // EditText: API 1, nothing thrown
+		Editable editableNumber = this.editText [1].getText(); // EditText: API 1, nothing thrown
+		
+		if ((editableName == null) || (editableNumber == null))
+			return;
+		
+		String name = editableName.toString(); // CharSequence: nothing thrown
+		String number = editableNumber.toString(); // CharSequence: nothing thrown
+		
+		this.editText [0].setText (""); // TextView: API 1, returns void, IllegalArgumentException is thrown
+		this.editText [1].setText (""); // TextView: API 1, returns void, IllegalArgumentException is thrown
+		
+		if ((name == null) || (number == null))
+			return;
+		
+		ContactListEntry newItem = new ContactListEntry (name, number);
+		
+		if (this.adapter != null) {
+			try {
+				this.adapter.add (newItem); // ArrayAdapter: API 1, returns void, throws UnsupportedOperationException
+			} catch (UnsupportedOperationException e) { }
+		}
+		
+	}
+	
+	
+	
+	private void addContactFromList () {
 		
 		String actionPick = Intent.ACTION_PICK; // API 1
 		Uri contentUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI; // API 5

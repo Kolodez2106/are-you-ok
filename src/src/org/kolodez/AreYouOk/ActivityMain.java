@@ -63,7 +63,7 @@ public class ActivityMain extends MultipleLayoutActivity {
         
         
         if (AppState.SDK < 16) {
-			String info = "This app is only supported since API level 16 (Android 4.1 Jelly Bean), and connecting to a pulse device is supported only since API level 21 (Android 5.0 Lollipop).";
+			String info = "This app is only supported since API level 16 (Android 4.1 Jelly Bean), and connecting to a pulse device is supported only since API level 18 (Android 4.3).";
 			
 			this.setContentView (R.layout.not_supported); // Activity: API 1, returns void, nothing thrown
 			
@@ -97,7 +97,7 @@ public class ActivityMain extends MultipleLayoutActivity {
 		this.layout [LAYOUT_TEST_LOCATION] = new ActivityMainLayoutLocationTest ();
 		this.layout [LAYOUT_HELP] = new ActivityMainLayoutHelp ();
 		
-		if (AppState.SDK >= 21)
+		if (AppState.SDK >= 18)
 			this.layout [LAYOUT_DEVICE_SEARCH] = new ActivityMainLayoutDeviceSearch ();
 		else
 			this.layout [LAYOUT_DEVICE_SEARCH] = new MultipleLayoutActivityLayout.EmptyLayout ();

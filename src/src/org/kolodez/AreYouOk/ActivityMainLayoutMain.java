@@ -288,13 +288,13 @@ public class ActivityMainLayoutMain extends MultipleLayoutActivityLayout {
 			if (myBinder.isConnectingProcess())
 				textButtonConnectDisconnect = "TODO: stop connecting";
 			else {
-				if (AppState.SDK >= 21)
+				if (AppState.SDK >= 18)
 					textButtonConnectDisconnect = "connect pulse device";
 				else
 					textButtonConnectDisconnect = "(pulse device not supported on this Android version)";
 			}
 			
-			this.button [BUTTON_CONNECT_DISCONNECT].setClickable ((AppState.SDK >= 21) && !myBinder.isConnectingProcess()); // View: API 1, returns void, nothing thrown
+			this.button [BUTTON_CONNECT_DISCONNECT].setClickable ((AppState.SDK >= 18) && !myBinder.isConnectingProcess()); // View: API 1, returns void, nothing thrown
 		}
 		
 		try {
@@ -376,7 +376,7 @@ public class ActivityMainLayoutMain extends MultipleLayoutActivityLayout {
 			if (this.binder.isDeviceConnected ())
 				this.binder.disconnectDevice ();
 			else {
-				if (AppState.SDK >= 21) {
+				if (AppState.SDK >= 18) {
 					ActivityMain activity = (ActivityMain) this.getActivity (); // this does not return null due to Assumption 1
 					activity.changeLayout (ActivityMain.LAYOUT_DEVICE_SEARCH);
 				}
@@ -556,7 +556,7 @@ public class ActivityMainLayoutMain extends MultipleLayoutActivityLayout {
 		boolean bClickable = (AppState.bMonitoring && (this.binder != null));
 		
 		this.button [BUTTON_SNOOZE].setClickable (bClickable); // View: API 1, returns void, nothing thrown
-		this.button [BUTTON_CONNECT_DISCONNECT].setClickable (bClickable && (AppState.SDK >= 21));
+		this.button [BUTTON_CONNECT_DISCONNECT].setClickable (bClickable && (AppState.SDK >= 18));
 		this.button [BUTTON_MIN_PULSE_DOWN].setClickable (bClickable);
 		this.button [BUTTON_MIN_PULSE_UP].setClickable (bClickable);
 		this.button [BUTTON_MAX_PULSE_DOWN].setClickable (bClickable);

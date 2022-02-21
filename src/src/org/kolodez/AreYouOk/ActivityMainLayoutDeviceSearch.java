@@ -10,11 +10,11 @@ import android.app.Activity; // API 1
 import android.bluetooth.BluetoothAdapter; // API 5
 import android.bluetooth.BluetoothDevice; // API 5
 import android.bluetooth.BluetoothManager; // API 18
-import android.bluetooth.le.BluetoothLeScanner; // API 21
-import android.bluetooth.le.ScanCallback; // API 21
-import android.bluetooth.le.ScanResult; // API 21
 
+import android.content.BroadcastReceiver; // API 1
 import android.content.Context; // API 1
+import android.content.Intent; // API 1
+import android.content.IntentFilter; // API 1
 import android.content.pm.PackageManager; // API 1
 
 import android.view.InflateException; // API 1
@@ -28,7 +28,7 @@ import android.widget.ListView; // API 1
 import android.widget.TextView; // API 1
 
 /*
- * This class is only available since API 21.
+ * This class is only available since API 18.
  * bindToActivity() must have been called before this layout is opened. (Assumption 1)
  */
 public class ActivityMainLayoutDeviceSearch extends MultipleLayoutActivityLayout {
@@ -45,8 +45,8 @@ public class ActivityMainLayoutDeviceSearch extends MultipleLayoutActivityLayout
 	
 	private TextView tvError;
 	
-	private BluetoothLeScanner bluetoothLeScanner = null;
-	private MyScanCallback myScanCallback = null;
+	private Discovery discovery;
+	
 	
 	
 	protected void onStart (int i) {
@@ -82,8 +82,13 @@ public class ActivityMainLayoutDeviceSearch extends MultipleLayoutActivityLayout
 		this.adapter = new MyArrayAdapter (activity);
 		this.listView.setAdapter (this.adapter); // ListView: API 1, returns void, nothing thrown
 		
-		String errorMsg = this.startScan();
+		
+		
+		this.discovery = this.new Discovery();
+		
+		String errorMsg = this.discovery.start();
 		if (errorMsg != null) {
+			this.discovery = null;
 			try {
 				this.tvError.setText (errorMsg); // TextView: API 1, returns void, IllegalArgumentException is thrown
 			} catch (IllegalArgumentException e) { }
@@ -93,24 +98,16 @@ public class ActivityMainLayoutDeviceSearch extends MultipleLayoutActivityLayout
 	
 	
 	protected void onEnd () {
-		this.endScanIfScanning ();
+		if (this.discovery != null) {
+			this.discovery.end();
+			this.discovery = null;
+		}
 		
 		try {
 			this.adapter.clear (); // ArrayAdapter: API 1, returns void, throws UnsupportedOperationException
 		} catch (UnsupportedOperationException e) { }
 	}
 	
-	
-	private void endScanIfScanning () {
-		if (this.bluetoothLeScanner != null) {
-			if (this.myScanCallback != null)
-				this.bluetoothLeScanner.stopScan (this.myScanCallback); // BluetoothLeScanner: API 21, returns void, nothing thrown
-			this.bluetoothLeScanner = null;
-		}
-		
-		if (this.myScanCallback != null)
-			this.myScanCallback = null;
-	}
 	
 	
 	private void closeDeviceSearch () {
@@ -129,21 +126,7 @@ public class ActivityMainLayoutDeviceSearch extends MultipleLayoutActivityLayout
 		activity.connectDevice (device);
 	}
 	
-	private void onScanFailed (int ErrorCode) {
-		this.endScanIfScanning ();
-		
-		try {
-			this.adapter.clear (); // ArrayAdapter: API 1, returns void, throws UnsupportedOperationException
-		} catch (UnsupportedOperationException e) { }
-		
-		try {
-			this.tvError.setText ("scan failed, error = " + ErrorCode); // TextView: API 1, returns void, IllegalArgumentException is thrown
-		} catch (IllegalArgumentException e) { }
-	}
-	
-	// result must not be null
-	private void onDeviceFound (ScanResult result) {
-		BluetoothDevice device = result.getDevice(); // ScanResult: API 21, nothing thrown
+	private void onDeviceFound (BluetoothDevice device) {
 		if (device == null)
 			return;
 		
@@ -271,79 +254,96 @@ public class ActivityMainLayoutDeviceSearch extends MultipleLayoutActivityLayout
 	
 	
 	
-	
-	
-	
-	// on success, null is returned; on error, the error description is returned
-	private String startScan () {
-		ActivityMain activity = (ActivityMain) this.getActivity (); // this does not return null due to Assumption 1
+	private class Discovery extends BroadcastReceiver {
 		
-		PackageManager packageManager = activity.getPackageManager(); // Context: API 1, nothing thrown
-		if (packageManager == null)
-			return "getPackageManager() failed";
+		private BluetoothAdapter bluetoothAdapter;
 		
-		String featureBluetoothLe = PackageManager.FEATURE_BLUETOOTH_LE; // API 18
-		if (!packageManager.hasSystemFeature (featureBluetoothLe)) // PackageManager: API 5, nothing thrown
-			return "feature FEATURE_BLUETOOTH_LE not found";
+		private ActivityMain activity;
 		
-		String bluetoothService = Context.BLUETOOTH_SERVICE; // API 18
-		BluetoothManager bluetoothManager;
-		try {
-			bluetoothManager = (BluetoothManager) activity.getSystemService (bluetoothService); // Context: API 1, nothing thrown
-		} catch (ClassCastException e) { return "getSystemService(BLUETOOTH_SERVICE) cannot be casted to BluetoothManager"; }
-		if (bluetoothManager == null)
-			return "getSystemService(BLUETOOTH_SERVICE) returned null";
 		
-		BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter(); // BluetoothManager: API 18, nothing thrown
-		if (bluetoothAdapter == null)
-			return "bluetoothManager.getAdapter() returned null";
-		
-		else if (!bluetoothAdapter.isEnabled()) // BluetoothAdapter: API 5, nothing thrown
-			return "bluetooth adapter not enabled";
-		
-		this.bluetoothLeScanner = bluetoothAdapter.getBluetoothLeScanner(); // BluetoothAdapter: API 21, nothing thrown
-		if (this.bluetoothLeScanner == null)
-			return "getBluetoothLeScanner() returned null";
-		
-		this.myScanCallback = new MyScanCallback();
-		if (this.myScanCallback == null)
-			return "MyScanCallback could not be created";
-		
-		try {
-			this.bluetoothLeScanner.startScan (this.myScanCallback); // BluetoothLeScanner: API 21, returns void, throws IllegalArgumentException
-		} catch (IllegalArgumentException e) {
-			this.myScanCallback = null;
-			return "bluetoothLeScanner.startScan() threw an exception";
+		private Discovery() {
+			this.activity = (ActivityMain) ActivityMainLayoutDeviceSearch.this.getActivity (); // this does not return null due to Assumption 1
 		}
 		
-		return null;
-	}
-	
-	
-	
-	
-	
-	private class MyScanCallback extends ScanCallback { // API 21 as ScanCallback
 		
-		public void onScanFailed (int ErrorCode) {
-			ActivityMainLayoutDeviceSearch.this.onScanFailed (ErrorCode);
+		// if the return value is not null, it contains an error message
+		private String setAdapter() {
+			PackageManager packageManager = this.activity.getPackageManager(); // Context: API 1, nothing thrown
+			if (packageManager == null)
+				return "activity.getPackageManager() returned null";
+			
+			String bluetoothService = Context.BLUETOOTH_SERVICE; // API 18
+			BluetoothManager bluetoothManager;
+			try {
+				bluetoothManager = (BluetoothManager) activity.getSystemService (bluetoothService); // Context: API 1, nothing thrown
+			} catch (ClassCastException e) { return "activity.getSystemService (Context.BLUETOOTH_SERVICE) could not be casted to BluetoothManager"; }
+			if (bluetoothManager == null)
+				return "activity.getSystemService (Context.BLUETOOTH_SERVICE) returned null";
+			
+			this.bluetoothAdapter = bluetoothManager.getAdapter(); // BluetoothManager: API 18, nothing thrown
+			if (this.bluetoothAdapter == null)
+				return "bluetoothManager.getAdapter() returned null";
+			else
+				return null;
 		}
 		
-		public void onScanResult (int CallbackType, ScanResult result) {
-			if (result != null)
-				ActivityMainLayoutDeviceSearch.this.onDeviceFound (result);
+		
+		// if this function returned null ( = no error), a single call to end() later is necessary
+		private String start () {
+			
+			String error = this.setAdapter();
+			if (error != null)
+				return error;
+			
+			if (!this.bluetoothAdapter.isEnabled()) // BluetoothAdapter: API 5, nothing thrown
+				return "bluetooth adapter not enabled";
+			
+			
+			if (this.bluetoothAdapter.isDiscovering()) { // BluetoothAdapter: API 5, nothing thrown
+				if (!this.bluetoothAdapter.cancelDiscovery()) // BluetoothAdapter: API 5, nothing thrown
+					return "bluetoothAdapter.cancelDiscovery() failed";
+			}
+			
+			
+			String actionFound = BluetoothDevice.ACTION_FOUND; // API 5
+			IntentFilter intentFilter = new IntentFilter (actionFound); // API 1, nothing thrown
+			
+			this.activity.registerReceiver (this, intentFilter); // ContextWrapper: API 1, returns Intent (if sticky intent found), throws nothing
+			
+			if (!this.bluetoothAdapter.startDiscovery()) { // BluetoothAdapter: API 5, nothing thrown
+				this.activity.unregisterReceiver (this); // ContextWrapper: API 1, returns void, throws nothing
+				return "bluetoothAdapter.startDiscovery() failed";
+			}
+			
+			return null;
 		}
 		
-		public void onBatchScanResults (List <ScanResult> listResults) {
-			if (listResults != null) {
-				for (ScanResult result : listResults) {
-					if (result != null)
-						ActivityMainLayoutDeviceSearch.this.onDeviceFound (result);
-				}
+		// call only if start() returned true
+		private void end () {
+			
+			if (this.bluetoothAdapter.isDiscovering()) { // BluetoothAdapter: API 5, nothing thrown
+				this.bluetoothAdapter.cancelDiscovery(); // BluetoothAdapter: API 5, returns boolean, throws nothing
+			}
+			
+			this.activity.unregisterReceiver (this); // ContextWrapper: API 1, returns void, throws nothing
+		}
+		
+		
+		
+		public void onReceive (Context context, Intent intent) {
+			String action = intent.getAction(); // Intent: API 1, nothing thrown
+			String actionFound = BluetoothDevice.ACTION_FOUND; // API 5
+			
+			if ((actionFound != null) && actionFound.equals(action)){ // String: API 1, nothing thrown
+				
+				String extraDevice = BluetoothDevice.EXTRA_DEVICE; // API 5
+				
+				BluetoothDevice device = intent.getParcelableExtra (extraDevice); // Intent: API 1, nothing thrown
+				
+				ActivityMainLayoutDeviceSearch.this.onDeviceFound (device);
 			}
 		}
 		
 	}
-	
 	
 }
