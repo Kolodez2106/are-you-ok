@@ -18,7 +18,7 @@ IMPORTANT: Before using the app, test the alarm function, e.g. by starting the m
 
 IMPORTANT: This app has not been designed for phones with multiple sim cards.
 
-This app works since API level 16 (Android 4.1 Jelly Bean), but connecting to a pulse device is supported only since API level 21 (Android 5.0 Lollipop).
+This app works since API level 16 (Android 4.1 Jelly Bean), but connecting to a pulse device is supported only since API level 18 (Android 4.3).
 
 ## How to build
 
@@ -80,6 +80,14 @@ Please tell the author your wishes in order to support the development: kolodez2
 ### Wake lock
 
 * Disable wake lock if no device is connected and replace by an Android alarm in order to save phone battery.
+
+## Updates
+
+### v1.26
+
+* Connecting to pulse device is now supported since API 18 (through BroadcastReceiver) instead of API 21 (through BluetoothLeScanner).
+* Contacts can now also be added manually by typing their name and phone number.
+* Default checking time is increased from 30 to 120 seconds.
 
 ## Acknowledgements
 
